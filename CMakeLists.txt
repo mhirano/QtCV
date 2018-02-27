@@ -14,9 +14,11 @@ if (UNIX AND NOT APPLE) #Ubuntu...
 
 else(APPLE)
     message(STATUS ">>> Mac")
-
+        
+    # If you installed Qt with homebrew and 'brew link --force qt5', you don't have to set QTDIR for find_package
     # set(QTDIR /usr/local/Cellar/qt/5.10.0_1)
     # set(CMAKE_PREFIX_PATH ${QTDIR})  
+        
     set(OpenCV_DIR /Users/mhirano/opencv-3.2.0/build)
 
     # Add include directory	(environemt specific)
@@ -32,10 +34,10 @@ set(CMAKE_AUTORCC ON)
 
 
 ######## ######## ######## ######## ######## ######## ######## ########
-######## 		     		Additional Libraries			   ######## 
+# Additional Libraries
 ######## ######## ######## ######## ######## ######## ######## ########
 # Qt
-find_package( Qt5 COMPONENTS Quick Core REQUIRED)
+find_package( Qt5 COMPONENTS Quick Core REQUIRED) 
 qt5_add_resources(QT_RESOURCES ui/qml.qrc)
 
 # OpenCV
@@ -46,7 +48,7 @@ include_directories( ${OpenCV_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/include )
 
 
 ######## ######## ######## ######## ######## ######## ######## ########
-######## 		     		Compiler settings				   ######## 
+# Compiler settings
 ######## ######## ######## ######## ######## ######## ######## ########
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -70,7 +72,7 @@ message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 
 set( SRC_LIST
         ${PROJECT_SOURCE_DIR}/src/main.cpp
-        )
+        include/applicationdata.h include/cppsignalslot.h src/cppsignalslot.cpp)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
 
