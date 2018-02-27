@@ -37,7 +37,7 @@ set(CMAKE_AUTORCC ON)
 # Additional Libraries
 ######## ######## ######## ######## ######## ######## ######## ########
 # Qt
-find_package( Qt5 COMPONENTS Quick Core REQUIRED) 
+find_package( Qt5 COMPONENTS Quick Core Gui REQUIRED)
 qt5_add_resources(QT_RESOURCES ui/qml.qrc)
 
 # OpenCV
@@ -72,10 +72,10 @@ message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 
 set( SRC_LIST
         ${PROJECT_SOURCE_DIR}/src/main.cpp
-        include/applicationdata.h include/cppsignalslot.h src/cppsignalslot.cpp)
+        src/Image.cpp include/Image.h)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
 
 # qt5_use_modules( ${PROJECT_NAME} Core Quick)
 
-target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} Qt5::Core Qt5::Quick )
+target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} Qt5::Core Qt5::Quick Qt5::Gui )
