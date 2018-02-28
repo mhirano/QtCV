@@ -11,6 +11,8 @@ Image::Image(QObject *parent) : QObject(parent){
 
 }
 
-void Image::loadImageButtonPressed() {
-    std::cout << "hoge";
+void Image::onLoadImageButtonPressed() {
+    cv::Mat lena = cv::imread("../res/lena.png", cv::IMREAD_COLOR);
+
+    std::cout << "hoge" << std::endl;
 }

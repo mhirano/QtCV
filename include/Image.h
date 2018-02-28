@@ -15,7 +15,7 @@ public:
     explicit Image(QObject *parent = nullptr);
 
 public slots:
-    void loadImageButtonPressed();
+    void onLoadImageButtonPressed();
 };
 
 

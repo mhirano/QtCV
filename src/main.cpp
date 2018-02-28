@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
     QObject* root = engine.rootObjects().first();
 
     QObject::connect(
-            root,
-            SIGNAL(loadImageButtonSignal()),
-            &img,
-            SLOT(loadImageButtonPressed())
+            root, // sender
+            SIGNAL(loadImageButtonPressed()), // signal
+            &img, // receiver
+            SLOT(onLoadImageButtonPressed()) // slot
     );
 
 //    Mat lena = imread( "qrc:/../res/lena.png", IMREAD_COLOR );
