@@ -6,7 +6,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "Image.h"
-
+// #include "ImageProvider.h"
 
 
 using namespace cv;
@@ -17,14 +17,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    Image img;
-
     QObject* root = engine.rootObjects().first();
+
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+//    engine.addImageProvider(QLatin1String("imageProvider"), new ImageProvider);
+
+    Image img;
 
     QObject::connect(
             root, // sender

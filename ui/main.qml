@@ -15,7 +15,7 @@ Window {
         anchors.centerIn: parent
 
         Item {
-            id: image
+            id: imageLocation
             width: 400
             height: 400
 
@@ -34,6 +34,12 @@ Window {
                 border.color: Qt.darker(color)
                 border.width: 4
             }
+
+//            Image {
+//                id: imageForeground
+//                anchors.fill: parent
+//                source: "image://imageProvider/yellow"
+//            }
 
             state: "unloaded"
             states: [
@@ -79,9 +85,5 @@ Window {
             }
         }
     }
-
-
-
-
 
 }

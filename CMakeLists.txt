@@ -25,7 +25,7 @@ else(APPLE)
     include_directories(/usr/local/include)
 
     # Add library directory	
-    link_directories(/usr/local/Cellar/fftw/3.3.6-pl2/lib) # fftw3 via homebrew
+    # link_directories(/usr/local/Cellar/fftw/3.3.6-pl2/lib) # fftw3 via homebrew
 endif()
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -71,8 +71,10 @@ message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 
 
 set( SRC_LIST
-        ${PROJECT_SOURCE_DIR}/src/main.cpp
-        src/Image.cpp include/Image.h)
+        src/main.cpp
+        src/Image.cpp include/Image.h
+        )
+       # src/ImageProvider.cpp include/ImageProvider.h)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
 
