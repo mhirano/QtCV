@@ -1,3 +1,4 @@
+import QtQml 2.0
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
@@ -9,6 +10,7 @@ Window {
     title: qsTr("Hello World")
 
     signal loadImageButtonPressed();
+    //signal exitButtonPressed();
 
     Row {
         spacing: 20
@@ -27,13 +29,19 @@ Window {
                 border.width: 4
             }
 
-            Rectangle {
+
+            Image {
                 id: imageForeground
                 anchors.fill: parent
-                color: "yellow"
-                border.color: Qt.darker(color)
-                border.width: 4
+                source: "image://imageProvider/red"
             }
+
+//            Connections {
+//                target: imageForeground
+//                onStateChanged: {
+//                    imageForeground.source = "image://imageProvider/red"
+//                }
+//            }
 
             state: "unloaded"
             states: [
@@ -41,11 +49,11 @@ Window {
                     name: "unloaded"
                     PropertyChanges {
                         target: imageBackground
-                        opacity: 1
+                        opacity: 0
                     }
                     PropertyChanges {
                         target: imageForeground
-                        opacity: 0
+                        opacity: 1
                     }
                 },
                 State {
@@ -69,19 +77,23 @@ Window {
         }
 
 
-        Button {
-            id: loadImageButton
-            text: "Load image"
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: {
-                image.state = "loaded"
-                loadImageButtonPressed()
+        Column{
+            spacing: 40
+            Button {
+                id: loadImageButton
+                text: "Load image"
+                // anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    image.state = "loaded"
+                    loadImageButtonPressed()
+                    imageForeground.source = "image://imageProvider/red"
+                }
+            }
+            Button {
+                id: exitButton
+                text: "exit"
+                onClicked: Qt.quit()
             }
         }
     }
-
-
-
-
-
 }
