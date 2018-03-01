@@ -4,21 +4,32 @@
 
 #include "ImageProvider.h"
 
-ImageProvider::ImageProvider()
-        : QQuickImageProvider(QQuickImageProvider::Pixmap)
+#include <opencv2/opencv.hpp>
+#include <QDebug>
+
+ImageProvider::ImageProvider(QObject* parent ) :
+        QObject(parent),
+        QQuickImageProvider(QQuickImageProvider::Pixmap),
+        image(QPixmap(400,400))
 {
+    image.scaled(400,400,Qt::IgnoreAspectRatio,Qt::FastTransformation);
+    image.fill(QColor(QLatin1String("gray")));
+    std::cout << "constructor called";
 }
 
 
-//QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) {
-//    int width = 100;
-//    int height = 50;
+QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize){
+    Q_UNUSED(id);
+    Q_UNUSED(size);
+    Q_UNUSED(requestedSize);
+     
+    return image;
+}
 
-//    if (size)
-//        *size = QSize(width, height);
-//    QPixmap pixmap(requestedSize.width() > 0 ? requestedSize.width() : width,
-//                   requestedSize.height() > 0 ? requestedSize.height() : height);
-//    pixmap.fill(QColor(id).rgba());
-
-//    return pixmap;
-//}
+void ImageProvider::onLoadImageButtonClicked(){
+    cv::Mat lena = cv::imread( "../res/lena.png", cv::IMREAD_COLOR );
+    cv::cvtColor(lena, lena, cv::COLOR_BGR2RGB);
+    image = QPixmap::fromImage(QImage((unsigned char*) lena.data, lena.cols, lena.rows, QImage::Format_RGB888));
+    
+    emit imageChanged();
+}

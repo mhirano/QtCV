@@ -38,7 +38,7 @@ set(CMAKE_AUTORCC ON)
 ######## ######## ######## ######## ######## ######## ######## ########
 # Qt
 find_package( Qt5 COMPONENTS Quick Core Gui REQUIRED)
-qt5_add_resources(QT_RESOURCES ui/qml.qrc)
+qt5_add_resources(QT_RESOURCES resource.qrc)
 
 # OpenCV
 find_package( OpenCV REQUIRED )
@@ -71,10 +71,8 @@ message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 
 
 set( SRC_LIST
-        src/main.cpp
-        src/Image.cpp include/Image.h
-        )
-       # src/ImageProvider.cpp include/ImageProvider.h)
+        ${PROJECT_SOURCE_DIR}/src/main.cpp
+        src/ImageProvider.cpp include/ImageProvider.h)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
 

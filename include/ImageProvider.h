@@ -8,11 +8,26 @@
 #include <QQuickImageProvider>
 #include <QPixmap>
 
-class ImageProvider : public QQuickImageProvider{
+#include <QObject>
+
+class ImageProvider : public QObject, public QQuickImageProvider {
+
+    Q_OBJECT
 public:
-    ImageProvider();
-//    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+    ImageProvider(QObject* parent = 0);
+
+    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+
+signals:
+    void imageChanged();
+    
+public slots:
+    void onLoadImageButtonClicked();
+
+private:
+    QPixmap image;
+
 };
 
-#endif //QTCV_IMAGEPROVIDER_H
 
+#endif //QTCV_IMAGEPROVIDER_H
