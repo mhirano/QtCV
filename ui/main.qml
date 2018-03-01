@@ -9,8 +9,7 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
-    signal loadImageButtonPressed();
-    //signal exitButtonPressed();
+    signal loadImageButtonClicked();
 
     Row {
         spacing: 20
@@ -21,72 +20,27 @@ Window {
             width: 400
             height: 400
 
-            Rectangle {
-                id: imageBackground
-                anchors.fill: parent
-                color: "slategray"
-                border.color: Qt.darker(color)
-                border.width: 4
-            }
-
-
             Image {
-                id: imageForeground
+                id: currentFrame
                 anchors.fill: parent
-                source: "image://imageProvider/red"
+                source: "image://imageProviderChannel/defaultImage"
             }
-
-//            Connections {
-//                target: imageForeground
-//                onStateChanged: {
-//                    imageForeground.source = "image://imageProvider/red"
-//                }
-//            }
-
-            state: "unloaded"
-            states: [
-                State {
-                    name: "unloaded"
-                    PropertyChanges {
-                        target: imageBackground
-                        opacity: 0
-                    }
-                    PropertyChanges {
-                        target: imageForeground
-                        opacity: 1
-                    }
-                },
-                State {
-                    name: "loaded"
-                    PropertyChanges {
-                        target: imageBackground
-                        opacity: 0
-                    }
-                    PropertyChanges {
-                        target: imageForeground
-                        opacity: 1
-                    }
+            Connections {
+                id: currentFrameConnection
+                target: imageProvider
+                onImageChanged: { 
+                    currentFrame.source = "image://imageProviderChannel/currentFrame"
                 }
-            ]
-            transitions: [
-                Transition {
-                    from: "*"; to: "*"
-                    NumberAnimation { properties: "opacity"; duration: 100 }
-                }
-            ]
+            }
         }
-
 
         Column{
             spacing: 40
             Button {
                 id: loadImageButton
                 text: "Load image"
-                // anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
-                    image.state = "loaded"
-                    loadImageButtonPressed()
-                    imageForeground.source = "image://imageProvider/red"
+                    imageProvider.onLoadImageButtonClicked()
                 }
             }
             Button {

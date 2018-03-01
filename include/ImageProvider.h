@@ -14,12 +14,14 @@ class ImageProvider : public QObject, public QQuickImageProvider {
     Q_OBJECT
 public:
     ImageProvider(QObject* parent = 0);
-    //~ImageProvider(){};
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
 
+signals:
+    void imageChanged();
+    
 public slots:
-    void onLoadImageButtonPressed();
+    void onLoadImageButtonClicked();
 
 private:
     QPixmap image;

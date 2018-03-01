@@ -15,8 +15,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    ImageProvider ip;
-    engine.addImageProvider(QLatin1String("imageProvider"), &ip); // should be loaded before qml file
+    ImageProvider *imageProvider = new ImageProvider;
+
+    engine.addImageProvider(QLatin1String("imageProviderChannel"), imageProvider); // should be loaded before qml file
+    
+    engine.rootContext()->setContextProperty("imageProvider", imageProvider); // not 
 
     engine.load(QUrl(QStringLiteral("qrc:/ui/main.qml")));
 
@@ -25,18 +28,6 @@ int main(int argc, char *argv[])
 
     QObject* root = engine.rootObjects().first();
 
-//    QObject::connect(
-//            root, // sender
-//            SIGNAL(loadImageButtonPressed()), // signal
-//            &imageProvider , // receiver
-//            SLOT(onLoadImageButtonPressed()) // slot
-//    );
-//    QObject::connect(
-//            root,
-//            SIGNAL(exitButtonPressed()),
-//            &app,
-//            SLOT(quit())
-    //);
-
     return app.exec();
+    
 }

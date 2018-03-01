@@ -18,11 +18,17 @@ ImageProvider::ImageProvider(QObject* parent ) :
 
 
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize){
+    Q_UNUSED(id);
     Q_UNUSED(size);
     Q_UNUSED(requestedSize);
+     
     return image;
 }
 
-void ImageProvider::onLoadImageButtonPressed(){
-    qDebug() << "Button pressed from C++";
+void ImageProvider::onLoadImageButtonClicked(){
+    cv::Mat lena = cv::imread( "../res/lena.png", cv::IMREAD_COLOR );
+    cv::cvtColor(lena, lena, cv::COLOR_BGR2RGB);
+    image = QPixmap::fromImage(QImage((unsigned char*) lena.data, lena.cols, lena.rows, QImage::Format_RGB888));
+    
+    emit imageChanged();
 }
