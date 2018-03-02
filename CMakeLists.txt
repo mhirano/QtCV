@@ -72,7 +72,7 @@ message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 
 set( SRC_LIST
         ${PROJECT_SOURCE_DIR}/src/main.cpp
-        src/ImageProvider.cpp include/ImageProvider.h)
+        src/ImageProvider.cpp include/ImageProvider.h src/Application.cpp include/Application.h)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
 
