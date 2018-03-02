@@ -9,10 +9,9 @@
 
 ImageProvider::ImageProvider(QObject* parent ) :
         QObject(parent),
-        QQuickImageProvider(QQuickImageProvider::Pixmap),
-        image(QPixmap(400,400))
+        QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
-    image.scaled(400,400,Qt::IgnoreAspectRatio,Qt::FastTransformation);
+    image = QPixmap(400, 400);
     image.fill(QColor(QLatin1String("gray")));
     std::cout << "constructor called";
 }
