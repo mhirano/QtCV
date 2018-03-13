@@ -11,3 +11,6 @@ export OpenCV_DIR=/Users/mhirano/opencv-3.2.0/build
 - Use out-of-source build. Namely, run `cmake` within debug or release directory as `cmake ..`
 
 - C++11 is activated by default if available.
+
+- Note
+-- Migrated from gitlab at March 13, 2018.
