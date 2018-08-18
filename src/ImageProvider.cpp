@@ -9,7 +9,6 @@ ImageProvider::ImageProvider(QObject* parent ) :
 {
     image = QPixmap(400, 400);
     image.fill(QColor(QLatin1String("gray")));
-    std::cout << "constructor called";
 }
 
 

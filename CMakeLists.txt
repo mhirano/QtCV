@@ -36,13 +36,26 @@ set(CMAKE_AUTORCC ON)
 ######## ######## ######## ######## ######## ######## ######## ########
 # Additional Libraries
 ######## ######## ######## ######## ######## ######## ######## ########
+
+# Create a variable that contains libraries to be used
+# When you add libraries, append them to the tail of 'accel_lib'
+set(lib_list "")
+
 # Qt
-find_package( Qt5 COMPONENTS Quick Core Gui REQUIRED)
+find_package( Qt5 COMPONENTS Quick Core Gui Concurrent REQUIRED)
 qt5_add_resources(QT_RESOURCES resource.qrc)
+
+set(lib_list
+        "${lib_list};Qt5::Core;Qt5::Quick;Qt5::Gui;Qt5::Concurrent"
+        )
 
 # OpenCV
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/include )
+
+set(lib_list
+        "${lib_list};${OpenCV_LIBS}"
+        )
 ######## ######## ######## ######## ######## ######## ######## ########
 
 
@@ -68,14 +81,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "-DRELEASE -O3 -DNDEBUG")
 message(STATUS "${CMAKE_CXX_FLAGS_RELEASE}")
 ######## ######## ######## ######## ######## ######## ######## ########
 
-
-
-set( SRC_LIST
+set( src_list
         ${PROJECT_SOURCE_DIR}/src/main.cpp
         src/ImageProvider.cpp include/ImageProvider.h src/Application.cpp include/Application.h)
 
-add_executable( ${PROJECT_NAME} ${SRC_LIST} ${QT_RESOURCES})
+message(STATUS "Linked libraries: ${accel_lib}")
 
-# qt5_use_modules( ${PROJECT_NAME} Core Quick)
+add_executable( ${PROJECT_NAME} ${src_list} ${QT_RESOURCES})
 
-target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} Qt5::Core Qt5::Quick Qt5::Gui )
+target_link_libraries( ${PROJECT_NAME} ${lib_list})
