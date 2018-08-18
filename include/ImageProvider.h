@@ -1,7 +1,3 @@
-//
-// Created by Masahiro Hirano on 2018/02/28.
-//
-
 #ifndef QTCV_IMAGEPROVIDER_H
 #define QTCV_IMAGEPROVIDER_H
 

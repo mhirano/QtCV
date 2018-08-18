@@ -1,7 +1,3 @@
-//
-// Created by Masahiro Hirano on 2018/03/02.
-//
-
 #ifndef QTCV_APPLICATION_H
 #define QTCV_APPLICATION_H
 

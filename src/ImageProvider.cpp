@@ -1,7 +1,3 @@
-//
-// Created by Masahiro Hirano on 2018/02/28.
-//
-
 #include "ImageProvider.h"
 
 #include <opencv2/opencv.hpp>
