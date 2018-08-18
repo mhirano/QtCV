@@ -1,7 +1,3 @@
-//
-// Created by Masahiro Hirano on 2018/03/02.
-//
-
 #include "Application.h"
 
 void Application::configure() {
